@@ -21,4 +21,4 @@ Interfacing LED with Atmega AT89S52 (8051) MCU <a name="TOP"></a>
 ![image](https://github.com/Nirvan007/8051_MCU/assets/127144315/32a4b009-dad6-4287-9459-a017ac5583f2)
 
 ## Conclusion
-We learned the interfacing of LED connection to Port of 8051. Learned how to create a delay in the program with conditional instructions.  
+I learned the interfacing of LED connection to Port of 8051. Learned how to create a delay in the program with conditional instructions.
