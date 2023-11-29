@@ -1,76 +1,58 @@
-Capacitor Voltage Transfer Characteristics <a name="TOP"></a>
+I2C and EEPROM interfacing using an Atmega AT89S52 (8051) MCU and EEPROM <a name="TOP"></a>
 ===================
 
 ## Table of Contents
-* [Description](#Description)
+* [Tool Description](#Tool-Description)
 * [Aim](#Aim)
-* [Calculations](#Calculations)
+* [Theory](#Theory)
 * [Procedure](#Procedure)
 * [Schematic](#Schematic)
-* [Netlist](#Netlist)
-* [Analyses](#Analyses)
-  * [DC](#DC)
-  * [Transient](#Transient)
+* [Conclusion](#Conclusion)
 
-## Description
-* The schematic and simulation of a capacitor was performed using Cadence Virtuoso Layout Suite in a Linux environment.
+## Tool Description
+* Keil uVision 5 IDE is a comprehensive integrated development environment tailored for 8051 microcontroller-based projects. Developed by ARM, it offers a user-friendly platform for writing, compiling, and debugging embedded C programs. With support for various 8051 derivatives, it provides a rich set of features including code editing, project management, and simulation capabilities. The IDE seamlessly integrates the Keil C51 compiler and debugger, streamlining the development process for 8051-based applications. Its intuitive interface and powerful tools make it a preferred choice for embedded systems developers, facilitating efficient coding, testing, and debugging in a single environment.
 
 ## Aim
-* To simulate the VTC of a capacitor with a constant current source and a supply voltage of constant 2V DC.
+* 8051 and EEPROM interfacing using I2C interface.
 
-## Calculations
-![image](https://github.com/Nirvan007/Analog_Electronics/assets/127144315/2a73449e-8658-4901-adfc-a49da464aed1)
+## Theory
+* I²C: I²C is a serial computer bus, which was invented by NXP semiconductors previously it was named Philips semiconductors. The I²C bus is used to attach low-speed peripheral integrated circuits to microcontrollers and processors. I²C bus uses two bidirectional open-drain lines such as SDA (serial data line) and SCL (serial clock line) and these are pulled up with resistors. I²C bus permits a master device to start communication with a slave device. Data is interchanged between these two devices. Typical voltages used are +3.3V or +5V although systems with extra voltages are allowed. Nowadays new microcontrollers have inbuilt I²C Registers. But in 8051 there are no such registers. So it is required to achieve I²C in 8051.
+Many devices support I²C. For example, EEPROM, ADC, LCD, etc. 
+
+* EEPROM: Electrically Erasable Programmable ROM (EEPROM) is a user-modifiable ROM that can be removed and reprogrammed frequently through the application of higher-than-normal electrical voltage. An EEPROM is a kind of non-volatile memory used in electronic devices like computers to store small quantities of data that should be saved when power is detached.
 
 ## Procedure
-* Open the Command Interface and create a new library
-* Give a name to the library (eg. `ACD_June23_batch`)
-* Select the “`attach to an existing technology`” node option
-* Select the "`gpdk 90nm`" technology node
-* Select the cell
-* Add a new cell by going to the "`files/new/cell`" option
-* Give a name to the cell (`eg. test_schematic`) and click “`OK`” keeping all other options as default.
-* After clicking on the “`OK`” button, the schematic will open
-* To get an instance, click the “`I`” button on the keyboard which will open the instance tab
-* Search the required component in the cell option and click the “`symbo`l” option.
-* Now there will be a component floating in the matrix
-* Press “`ESC`” to deselect the component
-* Select multiple by holding "`left click`" on the mouse and delete using the delete option
-* Press "`F`" to fit (zoom) the component
-* Press "`W`" for wire
-* To copy the component click “`C`” and then tap the component that has to be copied.
-* To move the components click “`M`” on the keyboard and then tap on the component
-* Tap on the component and Press “`Q`” to change the parameters
-* To open the simulation tab, go to the “`Launch`” option on the top left and select the “`ADE L`” option
-* Right-click on the “`design variables window`” and select the “`copy from cell view`” option
-* Click on the "`AC/DC/Trans analyses`" option on the top right
-* To save the parameters or state, go to the “`Sessions`” option and then click the “`save state`” option
-* Save the file in the required directory (`eg. ACD_June23_batch/test_schematic_/spectre/saved_state1`)
-* To change the simulator, go to the "`setup`" option and then select the simulator option
-* For high-performance simulations go to high-performance simulations in the setup option then APS (uses multiple licenses and multi-threading)
-* Temperature can also be changed using the "`temp C`" option
-* To save the outputs, go to "`outputs`" and select the specific saving only the required outputs. All can also be saved but takes more time
-* To perform a simulation, go to the “`Simulation`” option and then click the “`Netlist and Run`” option
-* The simulation will begin and then it will print the outputs in another tab
-* To set the initial conditions, select the net and set net with a initial condition and then assign the value
+* Write Mode
+ 1.	Send the START command from the Master.
+ 2.	Send Device (EEPROM) Address with write mode.
+ 3.	Send the Register address in Device (EEPROM), Where we have to access.
+ 4.	Send the Data to the Device (EEPROM).
+ 5.	If you want to send more than one byte, keep sending that byte.
+ 6.	Finally, Send the STOP command.
+
+* Read Mode
+ 1.	Send the START command from the Master.
+ 2.	Send Device (EEPROM) Address with write mode.
+ 3.	Send the Register address in Device (EEPROM), Where we have to access.
+ 4.	Send again the START command or the Repeated START command.
+ 5.	Send Device address with Read mode.
+ 6.	Read the data from the Device (EEPROM).
+ 7.	Finally, Send a STOP command.
+
+* START Command
+ ![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/36d9a904-1ed6-4663-904e-6fe981830e7d)
+ 1.	Initially, SDA and SCL are High.
+ 2.	SDA first goes to Zero.
+ 3.	Then SCL goes to Zero.
+
+* STOP Command
+ ![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/09291f99-05e1-455e-8c0a-5af092522102)
+ 1. When SCL is High, We have to toggle the SDA from Low to High.
 
 ## Schematic
-![image](https://github.com/Nirvan007/Analog_Electronics/assets/127144315/dc91eb91-faa0-4a91-a3c1-4239b302f577)
-
-## Netlist
-![image](https://github.com/Nirvan007/Analog_Electronics/assets/127144315/979bb477-4d9b-4fba-a873-b92f3e10ff96)
-
-## Analyses
-![image](https://github.com/Nirvan007/Analog_Electronics/assets/127144315/c8945ee2-221d-40ef-84bc-25117df56fa3)
-
-### DC
-![image](https://github.com/Nirvan007/Analog_Electronics/assets/127144315/bc5561ab-cc39-422a-9c4e-c8e55b93b106)
-
-### Transient
-![image](https://github.com/Nirvan007/Analog_Electronics/assets/127144315/08148d57-24fa-41d0-b471-66ece271dd83)
-
-## Output VTC Graph
-![image](https://github.com/Nirvan007/Analog_Electronics/assets/127144315/48ac65c5-dd8a-4f2b-a36f-905e3e3bd5e3)
-![image](https://github.com/Nirvan007/Analog_Electronics/assets/127144315/5baa6c75-1fc2-4ce7-910f-ca6346a1b42a)
+SCK – P3.6
+SDA – P3.7
+![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/f3d0dd98-1c35-464c-ad20-1e77d80d6820)
 
 ## Conclusion
-* As calculated in theory, the practical simulation results were the same, that is after a transient analysis of 1ms delay, the capacitor charges linearly until it reaches the 1V mark.
+I learned the interfacing of a DAC with an 8051 microcontroller. I also learned that the DAC needs a specific process of initialization and the conversion of digital to analog signal will further be given to V to I convertor.  
