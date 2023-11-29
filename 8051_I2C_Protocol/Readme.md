@@ -50,8 +50,7 @@ Many devices support I²C. For example, EEPROM, ADC, LCD, etc.
  * ![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/09291f99-05e1-455e-8c0a-5af092522102)
 
 ## Schematic
-* SCK – P3.6
-* SDA – P3.7
+* SCK – P3.6; SDA – P3.7
 * ![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/f3d0dd98-1c35-464c-ad20-1e77d80d6820)
 
 ## Conclusion
