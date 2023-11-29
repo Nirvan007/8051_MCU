@@ -1,0 +1,90 @@
+A51 MACRO ASSEMBLER  8051_LCD                                                             08/30/2022 11:41:18 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+NO OBJECT MODULE REQUESTED
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE 8051_LCD.A51 SET(SMALL) DEBUG PRINT(.\Listings\8051_LCD.lst) OBJECT(.\O
+                      bjects\8051_LCD.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0100                   1     ORG   100H
+0100 7438              2     MOV A,  #38H                    ;INIT. LCD 2 LINES, 5X7 MATRIX
+0102 3126              3     ACALL  COMNWRT          ;call command subroutine
+0104 3140              4     ACALL  DELAY                    ;give LCD some time
+0106 740E              5     MOV A, #0EH                     ;display on, cursor on
+0108 3126              6     ACALL  COMNWRT          ;call command subroutine
+010A 3140              7     ACALL  DELAY                    ;give LCD some time
+010C 7401              8     MOV A, #01                              ;clear LCD
+010E 3126              9     ACALL  COMNWRT          ;call command subroutine
+0110 3140             10     ACALL  DELAY                    ;give LCD some time
+0112 7406             11     MOV A, #06H                     ;shift cursor right
+0114 3126             12     ACALL  COMNWRT          ;call command subroutine
+0116 3140             13     ACALL  DELAY                    ;give LCD some time
+0118 7484             14     MOV A, #84H                     ;cursor at line 1, pos. 4
+011A 3126             15     ACALL  COMNWRT          ;call command subroutine
+011C 3140             16     ACALL  DELAY                    ;give LCD some time
+011E                  17     MOV A, #’N’                              ;display letter N
+*** _________________________________^
+*** __________________________________^
+*** ___________________________________^
+*** ERROR #A9 IN 17 (8051_LCD.A51, LINE 17): SYNTAX ERROR
+*** ERROR #A9 IN 17 (8051_LCD.A51, LINE 17): SYNTAX ERROR
+*** ERROR #A9 IN 17 (8051_LCD.A51, LINE 17): SYNTAX ERROR
+011E 3133             18     ACALL  DATAWRT          ;call display subroutine
+0120 3140             19     ACALL  DELAY                    ;give LCD some time
+0122                  20     MOV A, #’O’                             ;display letter O
+*** _________________________________^
+*** __________________________________^
+*** ___________________________________^
+*** ERROR #A9 IN 20 (8051_LCD.A51, LINE 20): SYNTAX ERROR
+*** ERROR #A9 IN 20 (8051_LCD.A51, LINE 20): SYNTAX ERROR
+*** ERROR #A9 IN 20 (8051_LCD.A51, LINE 20): SYNTAX ERROR
+0122 3133             21     ACALL  DATAWRT          ;call display subroutine
+0124 80FE             22     AGAIN:  SJMP AGAIN              ;stay here
+                      23                                     
+0126 F590             24     COMNWRT:        MOV P1, A                               ;copy reg A to port 1
+0128 C2A0             25     CLR  P2.0                               ;RS=0 for command
+012A C2A1             26     CLR  P2.1                                ;R/W=0 for write
+012C D2A2             27     SETB  P2.2                              ;E=1 for high pulse
+012E 3140             28     ACALL  DELAY                    ;give LCD some time
+0130 C2A2             29     CLR  P2.2                               ;E=0 for H-to-L pulse
+0132 22               30     RET
+                      31     
+0133 F590             32     DATAWRT:        MOV P1, A                               ;copy reg A to port 1
+0135 D2A0             33     SETB  P2.0                              ;RS=1 for data
+0137 C2A1             34     CLR  P2.1                               ;R/W=0 for write
+0139 D2A2             35     SETB  P2.2                              ;E=1 for high pulse
+013B 3140             36     ACALL  DELAY                    ;give LCD some time
+013D C2A2             37     CLR  P2.2                               ;E=0 for H-to-L pulse
+013F 22               38     RET
+                      39     
+0140 7B32             40     DELAY:    MOV R3, #50                               ;50 or higher for fast CPUs
+0142 7CFF             41     HERE2: MOV R4, #255             ;R4 = 255
+0144 DCFE             42     HERE: DJNZ  R4, HERE            ;stay until R4 becomes 0
+                      43     
+*** WARNING #A41 IN 43 (8051_LCD.A51, LINE 43): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  8051_LCD                                                             08/30/2022 11:41:18 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AGAIN. . . . . . .  C ADDR   0124H   A   
+COMNWRT. . . . . .  C ADDR   0126H   A   
+DATAWRT. . . . . .  C ADDR   0133H   A   
+DELAY. . . . . . .  C ADDR   0140H   A   
+HERE . . . . . . .  C ADDR   0144H   A   
+HERE2. . . . . . .  C ADDR   0142H   A   
+N. . . . . . . . .    ----   -----       
+O. . . . . . . . .    ----   -----       
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 6 ERROR(S)
