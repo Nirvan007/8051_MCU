@@ -17,8 +17,9 @@ Interfacing 4x4 Keyboard and 7-Segment Display with Atmega AT89S52 (8051) MCU <a
 ## Theory
 The predominant interface between humans and hardware is the keyboard. The matrix keypad allows a designer to implement a large number of inputs with a small number of port pins. For example, 16 keys arranged as a 4 x 4 matrix can be implemented with only eight port pins. These keypads were evolved originally for telephonic applications involving touch—tone signaling.
 ![image](https://github.com/Nirvan007/8051_MCU/assets/127144315/634c18d1-6283-43aa-98f1-826cff11889c)
+
 * Keyboard interfacing
-![image](https://github.com/Nirvan007/8051_MCU/assets/127144315/37c249a8-1c1d-4f3a-8267-e68966ed7034)
+  ![image](https://github.com/Nirvan007/8051_MCU/assets/127144315/37c249a8-1c1d-4f3a-8267-e68966ed7034)
 
 ## Schematic
 ![image](https://github.com/Nirvan007/8051_MCU/assets/127144315/4b93648b-556f-42a8-8722-4b61e1f75d4e)
@@ -27,4 +28,4 @@ The predominant interface between humans and hardware is the keyboard. The matri
 ![image](https://github.com/Nirvan007/8051_MCU/assets/127144315/d8bd778d-c6f7-45a8-a35b-cd0088ad7a4b)
 
 ## Conclusion
-I learned the interfacing of the 4*4 matrix keyboard and the 7-segment display with the 8051-microcontroller using Keil μvision 5 software. We also learnt about the key debounce function which helps to avoid false key acceptance.
+I learned the interfacing of the 4*4 matrix keyboard and the 7-segment display with the 8051-microcontroller using Keil μvision 5 software. I also learned about the key debounce function which helps to avoid false key acceptance.
