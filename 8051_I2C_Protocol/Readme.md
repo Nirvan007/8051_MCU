@@ -46,13 +46,13 @@ Many devices support I²C. For example, EEPROM, ADC, LCD, etc.
   3.	Then SCL goes to Zero.
 
 * STOP Command
+ * 1. When SCL is High, We have to toggle the SDA from Low to High.
  * ![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/09291f99-05e1-455e-8c0a-5af092522102)
- 1. When SCL is High, We have to toggle the SDA from Low to High.
 
 ## Schematic
 * SCK – P3.6
 * SDA – P3.7
-![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/f3d0dd98-1c35-464c-ad20-1e77d80d6820)
+* ![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/f3d0dd98-1c35-464c-ad20-1e77d80d6820)
 
 ## Conclusion
 I learned the interfacing of a DAC with an 8051 microcontroller. I also learned that the DAC needs a specific process of initialization and the conversion of digital to analog signal will further be given to V to I convertor.  
