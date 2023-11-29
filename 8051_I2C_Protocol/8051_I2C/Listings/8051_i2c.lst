@@ -1,0 +1,173 @@
+C51 COMPILER V9.60.0.0   8051_I2C                                                          08/30/2022 11:19:49 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE 8051_I2C
+OBJECT MODULE PLACED IN .\Objects\8051_i2c.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE 8051_i2c.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -8051_i2c.lst) TABS(2) OBJECT(.\Objects\8051_i2c.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          unsigned char bdata EP_DATA;
+   3          sbit lsb=EP_DATA^0;
+   4          sbit msb=EP_DATA^7;
+   5          sbit SDA = P3^7;
+   6          sbit SCL = P3^6;
+   7          unsigned char rec[12];
+   8          void i2c_start(void);
+   9          void i2c_stop(void);
+  10          void i2c_send (unsigned char);
+  11          void i2c_send_byte(unsigned char addr,unsigned char dataa);
+  12          void i2c_send_string(unsigned char addr,unsigned char *s);
+  13          unsigned char i2c_read(void);
+  14          unsigned char i2c_read_byte(unsigned char addr);
+  15          unsigned char i2c_read_string(unsigned char addr);
+  16          void ser_init();
+  17          void tx(unsigned char send);
+  18          void tx_str(unsigned char *s);
+  19          
+  20          void i2c_start(void)
+  21          {
+  22   1        SDA=1;
+  23   1        SCL=1;
+  24   1        SDA=0;
+  25   1        SCL=0;
+  26   1      }
+  27          void i2c_send (unsigned char send)
+  28          {
+  29   1        unsigned char i;
+  30   1        EP_DATA=send;
+  31   1        for(i=0;i<=7;i++) {
+  32   2        SDA=msb;
+  33   2        SCL=1;
+  34   2        SCL=0;
+  35   2        EP_DATA=EP_DATA<<1;
+  36   2      }
+  37   1      while(SDA!=0);
+  38   1        SCL=1;
+  39   1        SCL=0;
+  40   1      }
+  41          unsigned char i2c_read(void)
+  42          {
+  43   1        unsigned char i;
+  44   1        lsb=SDA;
+  45   1        for(i=0;i<=7;i++) {
+  46   2        EP_DATA=EP_DATA<<1;
+  47   2        lsb=SDA;
+  48   2        SCL=1;
+  49   2        SCL=0;
+  50   2      }
+  51   1      
+  52   1      if(EP_DATA==13) {
+  53   2        SDA=1;
+  54   2        SCL=1;
+C51 COMPILER V9.60.0.0   8051_I2C                                                          08/30/2022 11:19:49 PAGE 2   
+
+  55   2        SCL=0;
+  56   2        SDA=0;
+  57   2        i2c_stop();
+  58   2        return(EP_DATA);
+  59   2      }
+  60   1      SDA=0;
+  61   1      SCL=1;
+  62   1      SCL=0;
+  63   1      SDA=1;
+  64   1      return(EP_DATA);
+  65   1      }
+  66          void i2c_stop(void)
+  67          {
+  68   1        SDA=0;
+  69   1        SCL=1;
+  70   1        SDA=1;
+  71   1        SCL=0;
+  72   1      }
+  73          void i2c_send_byte(unsigned char addr,unsigned char dataa)
+  74          {
+  75   1        i2c_start();
+  76   1        i2c_send(0xa0);
+  77   1        i2c_send(addr);
+  78   1        i2c_send(dataa);
+  79   1        i2c_stop();
+  80   1      }
+  81          unsigned char i2c_read_byte(unsigned char addr)
+  82          {
+  83   1        unsigned char rec;
+  84   1        i2c_start();
+  85   1        i2c_send(0xa0);
+  86   1        i2c_send(addr);
+  87   1        i2c_start();
+  88   1        i2c_send(0xa1);
+  89   1        rec=i2c_read();
+  90   1        i2c_stop();
+  91   1        return rec;
+  92   1      }
+  93          void i2c_send_string(unsigned char addr,unsigned char *s)
+  94          {
+  95   1        i2c_start();
+  96   1        i2c_send(0xa0);
+  97   1        i2c_send(addr);
+  98   1        while(*s) {
+  99   2          i2c_send(*s++);
+ 100   2          }
+ 101   1        i2c_stop();
+ 102   1      }
+ 103          unsigned char i2c_read_string(unsigned char addr)
+ 104          {
+ 105   1        unsigned char i;
+ 106   1        i2c_start();
+ 107   1        i2c_send(0xa0);
+ 108   1        i2c_send(addr);
+ 109   1        i2c_start();
+ 110   1        i2c_send(0xa1);
+ 111   1        for(i=0;i<10;i++) {
+ 112   2          rec[i]=i2c_read(); }
+ 113   1        i2c_stop();
+ 114   1        return rec;
+ 115   1      }
+ 116          void ser_init()
+C51 COMPILER V9.60.0.0   8051_I2C                                                          08/30/2022 11:19:49 PAGE 3   
+
+ 117          {
+ 118   1        SCON=0x50;
+ 119   1        TMOD|=0x20;
+ 120   1        TH1=0xFD;
+ 121   1        TL1=0xFD;
+ 122   1        TR1=1;
+ 123   1      }
+ 124          void tx(unsigned char send)
+ 125          {
+ 126   1        SBUF=send;
+ 127   1        while(TI==0);
+ 128   1        TI=0;
+ 129   1      }
+ 130          void tx_str(unsigned char *s)
+ 131          {
+ 132   1        while(*s)
+ 133   1        tx(*s++);
+ 134   1      }
+ 135          
+ 136          int main()
+ 137          {
+ 138   1        #unsigned char data[12];
+*** WARNING C315 IN LINE 138 OF 8051_i2c.c: unknown #directive 'unsigned'
+ 139   1        ser_init();
+ 140   1        i2c_send_string(0x00,"EmbeTronicX");
+ 141   1        i2c_read_string(0x00);
+ 142   1        tx_str(rec);
+ 143   1        while(1);
+ 144   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    355    ----
+   CONSTANT SIZE    =     12    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     13       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
