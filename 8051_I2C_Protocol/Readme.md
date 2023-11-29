@@ -52,7 +52,7 @@ Many devices support I²C. For example, EEPROM, ADC, LCD, etc.
 ## Schematic
 * SCK – P3.6
 * SDA – P3.7
-* ![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/f3d0dd98-1c35-464c-ad20-1e77d80d6820)
+![image](https://github.com/Nirvan007/8051_MCU_Projects/assets/127144315/f3d0dd98-1c35-464c-ad20-1e77d80d6820)
 
 ## Conclusion
 I learned the interfacing of a DAC with an 8051 microcontroller. I also learned that the DAC needs a specific process of initialization and the conversion of digital to analog signal will further be given to V to I convertor.  
