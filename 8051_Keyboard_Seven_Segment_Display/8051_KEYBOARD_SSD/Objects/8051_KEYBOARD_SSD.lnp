@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\8051_KEYBOARD_SSD_ASMHeader.obj" 
+TO ".\Objects\8051_KEYBOARD_SSD" 
+PRINT(".\Listings\8051_KEYBOARD_SSD.m51") RAMSIZE(256) 

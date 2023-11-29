@@ -1,0 +1,89 @@
+A51 MACRO ASSEMBLER  8051_KEYBOARD_SSD_ASMHEADER                                          08/13/2022 19:18:38 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\8051_KEYBOARD_SSD_ASMHeader.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE 8051_KEYBOARD_SSD_ASMHeader.a51 SET(SMALL) DEBUG PRINT(.\Listings\8051_
+                      KEYBOARD_SSD_ASMHeader.lst) OBJECT(.\Objects\8051_KEYBOARD_SSD_ASMHeader.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG       0000H                                                    ;START OF MAIN PROGRAM F
+                             ROM MAIN
+0000 0102              2     AJMP    MAIN
+                       3     
+0002 7580FF            4     MAIN:   MOV     P0,          #0FFH                                   ;CONFIGURE PORT-0 AS I
+                             NPUT PORT
+0005 7590FF            5     MOV     P1,          #0FFH                                   ;BLANK THE SSD'S common anode
+0008 E580              6     NEXT:    MOV     A,            P0                                                          
+                              ;READ THE KEY BOARD
+000A B4770A            7     CJNE A, #77H, CHECKKEY1          
+000D 113E              8     ACALL    KEYDEBOUNCE
+000F 7590FE            9     MOV     P1,          #0FEH                                                   ;ENABLE SSD-0
+                      10     
+0012 75A0C0           11      MOV     P2,          #0C0H                                   ;DISPLAY-0
+0015 1108             12      ACALL   NEXT                                     ;CHECK FOR NEXT KEY PRESS
+                      13      
+0017 B47B0A           14      CHECKKEY1:        CJNE A, #7BH, CHECKKEY2            ;READAGAIN
+001A 113E             15      ACALL    KEYDEBOUNCE
+001C 7590FD           16      MOV     P1,          #0FDH                                   ;ENABLE SSD-1
+001F 75A0F9           17      MOV     P2,          #0F9H                                   ;DISPLAY-1
+0022 1108             18      ACALL   NEXT                                     ;CHECK FOR NEXT KEY PRESS
+                      19     
+0024 B47D0A           20      CHECKKEY2:        CJNE A, #7DH, CHECKKEY3            ;READAGAIN
+0027 113E             21      ACALL    KEYDEBOUNCE
+0029 7590FB           22      MOV     P1,          #0FBH                                   ;ENABLE SSD-2
+002C 75A0A4           23      MOV     P2,          #0A4H                                   ;DISPLAY-2
+002F 1108             24      ACALL   NEXT                                     ;CHECK FOR NEXT KEY PRESS
+                      25     
+0031 B47ED4           26      CHECKKEY3:        CJNE A,#7EH, NEXT          ;READAGAIN
+0034 113E             27      ACALL    KEYDEBOUNCE
+0036 7590F7           28      MOV     P1,          #0F7H                                  ;ENABLE SSD-3
+0039 75A0B0           29      MOV     P2,          #0B0H                                   ;DISPLAY-3
+003C 1108             30      ACALL   NEXT                                     ;CHECK FOR NEXT KEY PRESS
+                      31     
+                      32      
+                      33     ;DeBOUNCE subroutine for 100 msec
+                      34     
+003E 758910           35     KEYDEBOUNCE:         MOV      TMOD,    #10H                                   ;TIMER-1, MOD
+                             E-1  
+0041 7814             36     MOV      R0,             #14H                                 ; COUNT FOR 20D
+0043 758B3C           37     REPEAT: MOV          TL1,            #3CH                                 ; LOWER BYTE OF C
+                             OUNT    
+0046 85B08D           38     MOV      TH1,           0B0H                                 ; HIGHER BYTE OF COUNT
+0049 758840           39     MOV      TCON,     #40H                                    ;START TIMER-1
+004C 308FFD           40     WAIT:  JNB            TCON.7, WAIT                                    ;WAIT FOR OVERFLOW
+004F 758800           41     MOV      TCON,     #00H                                    ; STOP THE TIMER-1
+0052 D8EF             42     DJNZ      R0,            REPEAT                              ; 20 D TIMES COUNTING
+0054 22               43     RET
+                      44     
+                      45     END
+A51 MACRO ASSEMBLER  8051_KEYBOARD_SSD_ASMHEADER                                          08/13/2022 19:18:38 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CHECKKEY1. . . . .  C ADDR   0017H   A   
+CHECKKEY2. . . . .  C ADDR   0024H   A   
+CHECKKEY3. . . . .  C ADDR   0031H   A   
+KEYDEBOUNCE. . . .  C ADDR   003EH   A   
+MAIN . . . . . . .  C ADDR   0002H   A   
+NEXT . . . . . . .  C ADDR   0008H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+REPEAT . . . . . .  C ADDR   0043H   A   
+TCON . . . . . . .  D ADDR   0088H   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+WAIT . . . . . . .  C ADDR   004CH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
