@@ -5,8 +5,9 @@ Interfacing 16x2 LCD with Atmega AT89S52 (8051) microcontroller  <a name="TOP"><
 * [Tool Description](#Tool-Description)
 * [Aim](#Aim)
 * [Theory](#Theory)
-* [DAC0808 Features](#DAC0808-Features)
+* [LCD Interfacing](#LCD-Interfacing)
 * [Schematic](#Schematic)
+* [Program Flowchart](#Program-Flowchart)
 * [Conclusion](#Conclusion)
 
 ## Tool Description
