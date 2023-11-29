@@ -4,8 +4,9 @@ Display a staircase wave signal on a Cathode Ray Oscilloscope (CRO) using an Atm
 ## Table of Contents
 * [Tool Description](#Tool-Description)
 * [Aim](#Aim)
+* [Theory](#Theory)
+* [DAC0808 Features](#DAC0808-Features)
 * [Schematic](#Schematic)
-* [Program Flowchart](#Program-Flowchart)
 * [Conclusion](#Conclusion)
 
 ## Tool Description
