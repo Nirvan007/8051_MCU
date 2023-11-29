@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\8051_DAC_ASMHeader.obj" 
+TO ".\Objects\8051_DAC" 
+PRINT(".\Listings\8051_DAC.m51") RAMSIZE(256) 

@@ -1,0 +1,56 @@
+A51 MACRO ASSEMBLER  8051_DAC_ASMHEADER                                                   11/03/2022 03:13:10 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\8051_DAC_ASMHeader.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE 8051_DAC_ASMHeader.a51 SET(SMALL) DEBUG PRINT(.\Listings\8051_DAC_ASMHe
+                      ader.lst) OBJECT(.\Objects\8051_DAC_ASMHeader.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 0102              2     AJMP START
+0002 758130            3     START:  MOV SP, #030H
+0005 7400              4     MOV A, #000H
+0007 F580              5     MOV P0,A
+0009 1119              6     ACALL DELAY
+000B 4401              7     ORL A, #01H
+000D F580              8     AGAIN: MOV P0,A
+000F 1119              9     ACALL DELAY
+0011 23               10     RL A
+0012 B50002           11     CJNE A, 00H,NEXT
+0015 0102             12     AJMP START
+0017 80F4             13     NEXT: SJMP AGAIN
+0019 758910           14     DELAY: MOV TMOD ,#10H
+001C 758B18           15     MOV TL1, #18H
+001F 758DFC           16     MOV TH1 ,#0FCH
+0022 758840           17     MOV TCON, #40H
+0025 308FFD           18     WAIT: JNB TCON.7,WAIT
+0028 758800           19     MOV TCON ,#00H
+002B 22               20     RET
+                      21     END
+A51 MACRO ASSEMBLER  8051_DAC_ASMHEADER                                                   11/03/2022 03:13:10 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AGAIN. . . . . . .  C ADDR   000DH   A   
+DELAY. . . . . . .  C ADDR   0019H   A   
+NEXT . . . . . . .  C ADDR   0017H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+START. . . . . . .  C ADDR   0002H   A   
+TCON . . . . . . .  D ADDR   0088H   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+WAIT . . . . . . .  C ADDR   0025H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
