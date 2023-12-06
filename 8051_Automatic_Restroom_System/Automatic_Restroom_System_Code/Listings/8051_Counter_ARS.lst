@@ -1,0 +1,56 @@
+C51 COMPILER V9.60.0.0   8051_COUNTER_ARS                                                  10/20/2022 04:33:32 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE 8051_COUNTER_ARS
+OBJECT MODULE PLACED IN .\Objects\8051_Counter_ARS.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE 8051_Counter_ARS.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\8051_Counter_ARS.lst) TABS(2) OBJECT(.\Objects\8051_Counter_ARS.obj)
+
+line level    source
+
+   1          #include<reg51.h> 
+   2          
+   3          sbit PIR = P2^7;
+   4          sbit IR = P2^6;
+   5          sbit RELAY1 = P2^5;
+   6          sbit RELAY2 = P2^3;
+   7          
+   8          void MSdelay(unsigned int val)
+   9          {
+  10   1           unsigned int i,j;
+  11   1              for(i=0;i<=val;i++)
+  12   1                  for(j=0;j<112;j++); /* Delay of 1 ms for 11.0592MHz Frequency */
+  13   1      }
+  14          
+  15          
+  16          void main (void) {
+  17   1        while(1) {
+  18   2          if(PIR==1){
+  19   3            RELAY1 = 0; /*PIR delay is set using the trimpot on the sensor*/
+  20   3            if(IR==1){      
+  21   4              RELAY2 = 0;
+  22   4            }
+  23   3            else{
+  24   4              RELAY2 = 1;
+  25   4              MSdelay(5000);
+  26   4            }
+  27   3          }
+  28   2          else{
+  29   3            RELAY1 = 1;
+  30   3            }
+  31   2        } 
+  32   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     59    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
